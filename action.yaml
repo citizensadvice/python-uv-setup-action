@@ -1,0 +1,69 @@
+name: 'Setup python with poetry environment'
+description: 'Set up an Actions job for Python and Poetry'
+inputs:
+  project_root:
+    description: 'The location of the python project root'
+    required: false
+    default: ${{ github.workspace }}
+  install_cdk:
+    description: 'Install the AWS CDK. Defaults to false'
+    required: false
+    default: 'false'
+  node_version:
+    description: 'The version of Node.js to install'
+    required: false
+    default: '20'
+  cdk_version:
+    description: 'The version of the AWS CDK to install'
+    required: false
+    default: 'latest'
+  report_outdated_packages:
+    description: 'Print outdated python packages to the step summary'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Enable magic cache
+      uses: runs-on/action@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: ${{ inputs.project_root }}/pyproject.toml
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        working-directory: ${{ inputs.project_root }}
+        enable-cache: true
+
+    - name: Setup Node
+      if: ${{ inputs.install_cdk == 'true' }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+
+    - name: Install CDK
+      if: ${{ inputs.install_cdk == 'true' }}
+      shell: bash
+      run: npm install -g aws-cdk@${{ inputs.cdk_version }}
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ inputs.project_root }}
+      run: uv sync --locked
+
+    - name: Print dependencies
+      shell: bash
+      working-directory: ${{ inputs.project_root }}
+      run: uv tree --locked
+
+    - name: Report outdated python packages
+      if: ${{ inputs.report_outdated_packages == 'true' }}
+      shell: bash
+      working-directory: ${{ inputs.project_root }}
+      run: |
+        echo "## Outdated packages\n" >> $GITHUB_STEP_SUMMARY && \
+        uv tree --locked --outdated --depth 1 | sed 's/├── //' | grep latest | tee -a $GITHUB_STEP_SUMMARY
