@@ -66,4 +66,4 @@ runs:
       working-directory: ${{ inputs.project_root }}
       run: |
         echo "## Outdated packages" >> $GITHUB_STEP_SUMMARY && \
-        uv tree --locked --outdated --depth 1 | grep latest | sed 's/├── /- /' | tee -a $GITHUB_STEP_SUMMARY
+        uv tree --locked --outdated --depth 1 | grep latest | sed 's/^[^ ]* /- /' | tee -a $GITHUB_STEP_SUMMARY
