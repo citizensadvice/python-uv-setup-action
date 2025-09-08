@@ -21,7 +21,7 @@ jobs:
       - name: Run Action
         uses: ./
         with:
-          project_root: .github.test_project
+          project_root: .github/test_project
           node_version: ${{ matrix.node_version }}
           install_cdk: ${{ matrix.install_cdk }}
           cdk_version: ${{ matrix.cdk_version }}
