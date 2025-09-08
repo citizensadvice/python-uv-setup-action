@@ -7,12 +7,12 @@ on:
 jobs:
   test:
     name: Run Action Tests
-    runs-on: runs-on
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node_version: ['18', '20']
         install_cdk: ['true', 'false']
-        cdk_version: ['latest', '2.1027', '2.1020']
+        cdk_version: ['latest', '2.1020']
         report_outdated_packages: ['true', 'false']
 
     steps:
