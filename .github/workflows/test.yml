@@ -35,6 +35,3 @@ jobs:
         run: |
           node --version
           cdk --version
-
-
-
