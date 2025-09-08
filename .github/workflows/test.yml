@@ -26,3 +26,15 @@ jobs:
           install_cdk: ${{ matrix.install_cdk }}
           cdk_version: ${{ matrix.cdk_version }}
           report_outdated_packages: ${{ matrix.report_outdated_packages }}
+
+      - name: Test uv installed
+        run: uv --version
+
+      - name: Test cdk installed
+        if: matrix.install_cdk == 'true'
+        run: |
+          node --version
+          cdk --version
+
+
+
