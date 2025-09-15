@@ -14,6 +14,7 @@ jobs:
         install_cdk: ['true', 'false']
         cdk_version: ['latest', '2.1020']
         report_outdated_packages: ['true', 'false']
+        python_version: ['', '3.10']
 
     steps:
       - uses: actions/checkout@v4
@@ -25,10 +26,15 @@ jobs:
           node_version: ${{ matrix.node_version }}
           install_cdk: ${{ matrix.install_cdk }}
           cdk_version: ${{ matrix.cdk_version }}
+          python_version: ${{ matrix.python_version }}
           report_outdated_packages: ${{ matrix.report_outdated_packages }}
 
       - name: Test uv installed
         run: uv --version
+
+      - name: Test Python version
+        if: matrix.python_version != ''
+        run: uv run python --version | grep ${{ matrix.python_version }}
 
       - name: Test cdk installed
         if: matrix.install_cdk == 'true'

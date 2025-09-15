@@ -17,6 +17,10 @@ inputs:
     description: 'The version of the AWS CDK to install'
     required: false
     default: 'latest'
+  python_version:
+    description: 'The version of Python to install. Defaults to latest compatable with pyproject.toml'
+    required: false
+    default: ''
   report_outdated_packages:
     description: 'Print outdated python packages to the step summary'
     required: false
@@ -32,12 +36,14 @@ runs:
       uses: actions/setup-python@v6
       with:
         python-version-file: ${{ inputs.project_root }}/pyproject.toml
+        python-version: ${{ inputs.python_version }}
 
     - name: Setup uv
       uses: astral-sh/setup-uv@v6
       with:
         working-directory: ${{ inputs.project_root }}
         enable-cache: true
+        python-version: ${{ inputs.python_version }}
 
     - name: Setup Node
       if: ${{ inputs.install_cdk == 'true' }}
