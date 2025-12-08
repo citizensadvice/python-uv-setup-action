@@ -59,12 +59,12 @@ runs:
     - name: Install dependencies
       shell: bash
       working-directory: ${{ inputs.project_root }}
-      run: uv sync --locked
+      run: uv sync --frozen --all-groups
 
     - name: Print dependencies
       shell: bash
       working-directory: ${{ inputs.project_root }}
-      run: uv tree --locked
+      run: uv tree --frozen
 
     - name: Report outdated python packages
       if: ${{ inputs.report_outdated_packages == 'true' }}
@@ -72,4 +72,4 @@ runs:
       working-directory: ${{ inputs.project_root }}
       run: |
         echo "## Outdated packages" >> $GITHUB_STEP_SUMMARY && \
-        uv tree --locked --outdated --depth 1 | grep latest | sed 's/^[^ ]* /- /' | tee -a $GITHUB_STEP_SUMMARY
+        uv tree --frozen --outdated --depth 1 | grep latest | sed 's/^[^ ]* /- /' | tee -a $GITHUB_STEP_SUMMARY
