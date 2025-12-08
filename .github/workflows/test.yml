@@ -43,7 +43,9 @@ jobs:
           cdk --version
 
       - name: List installed packages
+        working-directory: .github/test_project
         run: uv pip list
 
       - name: Test extra group installed
+        working-directory: .github/test_project
         run: uv pip list | grep python-dotenv
