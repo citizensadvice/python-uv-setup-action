@@ -42,5 +42,8 @@ jobs:
           node --version
           cdk --version
 
+      - name: List installed packages
+        run: uv pip list
+
       - name: Test extra group installed
         run: uv pip list | grep python-dotenv
