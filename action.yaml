@@ -30,16 +30,16 @@ runs:
   using: 'composite'
   steps:
     - name: Enable magic cache
-      uses: runs-on/action@v2
+      uses: runs-on/action@742bf56072eb4845a0f94b3394673e4903c90ff0
 
     - name: Setup Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
       with:
         python-version-file: ${{ inputs.project_root }}/pyproject.toml
         python-version: ${{ inputs.python_version }}
 
     - name: Setup uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
       with:
         working-directory: ${{ inputs.project_root }}
         enable-cache: true
@@ -47,7 +47,7 @@ runs:
 
     - name: Setup Node
       if: ${{ inputs.install_cdk == 'true' }}
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
       with:
         node-version: ${{ inputs.node_version }}
 
