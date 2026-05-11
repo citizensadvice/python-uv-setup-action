@@ -24,7 +24,7 @@ This action will cache uv dependencies for use with later workflow runs and use 
 | -------------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------ |
 | `project_root`             | The location of the python project root                                             | No       | `github.workspace` |
 | `install_cdk`              | Install the AWS CDK                                                                 | No       | `false`            |
-| `node_version`             | The version of Node.js to install                                                   | No       | `20`               |
+| `node_version`             | The version of Node.js to install                                                   | No       | `24`               |
 | `cdk_version`              | The version of the AWS CDK to install                                               | No       | `latest`           |
 | `python_version`           | The version of Python to install. Defaults to latest compatable with pyproject.toml | No       | ``                 |
 | `report_outdated_packages` | Print outdated python packages to the step summary                                  | No       | `false`            |
