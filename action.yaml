@@ -33,7 +33,7 @@ runs:
       uses: runs-on/action@4e5f72399b6b17f2e79c511c1b38a315a64d22dc
 
     - name: Setup Python
-      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
       with:
         python-version-file: ${{ inputs.project_root }}/pyproject.toml
         python-version: ${{ inputs.python_version }}
