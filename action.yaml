@@ -30,7 +30,7 @@ runs:
   using: 'composite'
   steps:
     - name: Enable magic cache
-      uses: runs-on/action@46910bf61b41721b0579f237e186afb35477007a
+      uses: runs-on/action@efac073ea2507ec18797de3a81704201ade11d9d
 
     - name: Setup Python
       uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
